@@ -121,11 +121,38 @@ public class YoRPG
       post: Returns true if player wins (monster dies).
       Returns false if monster wins (player dies).
       =============================================*/
+
+    public void rooms(){
+	for (int room = 1; room < 10; room += 1){
+	    System.out.println( "You are in Room " + room + ".");
+	    if (Math.random() > 0.3){
+		if (!playTurn()){
+		    System.out.println("Game Over.");
+		    break;
+		}
+		else {
+		    room += 1;
+		}
+	    }
+	    else {
+		if (Math.random() < 0.5){
+		    System.out.println("Yay, you got a health powerup");
+		    pat.health += 20;
+		}
+		else {
+		    System.out.println("Yay, you got a strength powerup");
+		    pat.strength += 10;
+		}
+	    }
+	}
+    }
+		
+		
     public boolean playTurn()
     {
 	int i = 1;
 	int d1, d2;
-
+	    
 	if ( Math.random() >= ( difficulty / 3.0 ) )
 	    System.out.println( "\nNothing to see here. Move along!" );
 	else {
@@ -195,13 +222,8 @@ public class YoRPG
 	YoRPG game = new YoRPG();
 
 	int encounters = 0;
-
-	while( encounters < MAX_ENCOUNTERS ) {
-	    if ( !game.playTurn() )
-		break;
-	    encounters++;
-	    System.out.println();
-	}
+	
+        game.rooms();
 
 	System.out.println( "Thy game doth be over." );
 	/*================================================

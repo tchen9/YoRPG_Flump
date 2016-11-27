@@ -19,6 +19,9 @@ public class Monster extends Character{
 	SPECIAL_STRENGTH = DEFAULT_STRENGTH + inc;
         SPECIAL_DEFENSE = defense - inc;
     }
+    public String about(){
+	return "monster";
+    }
     public void specialize(){
 	strength = SPECIAL_STRENGTH;
 	defense = SPECIAL_DEFENSE;
