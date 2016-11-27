@@ -11,16 +11,14 @@ public class YoRPG
 {
     // ~~~~~~~~~~~ INSTANCE VARIABLES ~~~~~~~~~~~
 
-    //change this constant to set number of encounters in a game
-    public final static int MAX_ENCOUNTERS = 5;
-
     //each round, a Warrior and a Monster will be instantiated...
     private Character pat;   //Is it man or woman?
-    private Character smaug; //Friendly generic monster name?
+    private Monster smaug; //Friendly generic monster name?
 
     private int moveCount;
     private boolean gameOver;
     private int difficulty;
+    private int floor;
 
     private InputStreamReader isr;
     private BufferedReader in;
@@ -50,6 +48,7 @@ public class YoRPG
       =============================================*/
     public void newGame()
     {
+	floor = 1;
 	String s;
 	String name = "";
 	int player = 0;
@@ -75,45 +74,95 @@ public class YoRPG
 	    name = in.readLine();
 	}
 	catch ( IOException e ) { }
-	s = "Select your player:\n";
+	
+	s = "Class Info:\n";
 	s += "\t1: Warrior\n";
 	s += "\t2: Mage\n";
 	s += "\t3: Archer\n";
 	s += "\t4: Healer\n";
 	s += "\t5: Giant\n";
+	s += "\t6: I'm ready\n";
 	s += "Selection: ";
 	System.out.print( s );
 
-	try{
-	     player = Integer.parseInt( in.readLine() );
-	}
-	catch ( IOException e ) { }
-
+	while (player != 6){
+		    
+		try{
+		    player = Integer.parseInt( in.readLine() );
+		}
+		catch ( IOException e ) { }
 	
-	//instantiate the player's character
-	if (player == 1){
-	    pat = new Warrior( name );
-	    System.out.println(pat.about());
-	}
-	if (player == 2){
-	    pat = new Mage( name );
-	    System.out.println(pat.about());
-	}
-	if (player == 3){
-	    pat = new Archer( name );
-	    System.out.println(pat.about());
-	}
-	if (player == 4){
-	     pat = new Healer( name );
-	     System.out.println(pat.about());
-	}
-	if (player == 5){
-	    pat = new Giant( name );
-	    System.out.println(pat.about());
-	}
+		//instantiate the player's character
+		if (player == 1){
+		    pat = new Warrior( name );
+		    System.out.println(pat.about());
+	    
+		}
+		if (player == 2){
+		    pat = new Mage( name );
+		    System.out.println(pat.about());
+		}
+		if (player == 3){
+		    pat = new Archer( name );
+		    System.out.println(pat.about());
+		}
+		if (player == 4){
+		    pat = new Healer( name );
+		    System.out.println(pat.about());
+		}
+		if (player == 5){
+		    pat = new Giant( name );
+		    System.out.println(pat.about());
+		}
+		if (player == 6)
+		    break;
+		System.out.println(s);
+	    }
 	
     }//end newGame()
 
+    public void startGame(){
+	int room = 1;
+	System.out.println("\nIn front of you stands a great tower. You look up and see the princess at the top floor. You exclaim, ' I'm coming fair maiden!' and rush in.");
+	while (floor <= 5){
+	    if (pat.getHealth() <= 0)
+		break;
+	    while (room <= 5){
+		System.out.println( "\nYou are in Room " + room + " of floor " + floor + ".");
+		if (Math.random() >= 0.25){
+		    if (!playTurn())
+			break;
+		    else {
+			room += 1;
+		    }
+		}
+		else {
+		    if (Math.random() < 0.5){
+			System.out.println("\nYay, you got a powerup");
+			pat.strength += 5;
+			pat.defense += 5;
+			pat.DEFAULT_STRENGTH += 5;
+			pat.DEFAULT_DEFENSE += 5;
+			pat.SPECIAL_STRENGTH += 5;
+			pat.SPECIAL_STRENGTH += 5;
+			System.out.println("\nStrength: " + pat.getStrength() + "\nDefense: " + pat.getDefense());
+			room += 1;
+		    }
+		    else {
+			System.out.println("\nYay, you got a health potion");
+			pat.health += 200;
+			System.out.println("\nHealth: " + pat.getHealth());
+			room += 1;
+		    }
+		}
+	    }
+	    room = 1;
+	    floor += 1;
+	}
+	if (floor == 6){
+	    System.out.println("\nYou reach the top floor of the tower and run out onto the roof. As you rush to untie the princess, the Boss monster eats her and you stare dumbfounded.");
+	}
+    }
 
     /*=============================================
       boolean playTurn -- simulates a round of combat
@@ -121,50 +170,30 @@ public class YoRPG
       post: Returns true if player wins (monster dies).
       Returns false if monster wins (player dies).
       =============================================*/
-
-    public void rooms(){
-	int room = 1;
-	
-        while (room < 10){
-	    
-	    System.out.println( "You are in Room " + room + ".");
-	    if (Math.random() > 0.3){
-		if (!playTurn()){
-		    System.out.println("Game Over.");
-		    break;
-		}
-		else {
-		    room += 1;
-		}
-	    }
-	    else {
-		if (Math.random() < 0.5){
-		    System.out.println("Yay, you got a health powerup");
-		    pat.health += 20;
-		    room += 1;
-		}
-		else {
-		    System.out.println("Yay, you got a strength powerup");
-		    pat.strength += 10;
-		    room += 1;
-		}
-	    }
-	}
-    }
-		
-		
     public boolean playTurn()
     {
 	int i = 1;
 	int d1, d2;
-	    
+	double monsterType = Math.random();
+
 	if ( Math.random() >= ( difficulty / 3.0 ) )
 	    System.out.println( "\nNothing to see here. Move along!" );
 	else {
-	    System.out.println( "\nLo, yonder monster approacheth!" );
 
-	    smaug = new Monster();
+	    if (monsterType < 0.25){
+		smaug = new Goblin(floor);
+	    }
+	    else if (monsterType < 0.5){
+		smaug = new Ogre(floor);
+	    }
+	    else if (monsterType < 0.75){
+		smaug = new Orc(floor);
+	    }
+	    else {
+		smaug = new Dragon(floor);
+	    }
 
+	    System.out.println( "\nLo, yonder " + smaug.about() + "  approacheth!" );
 	    while( smaug.isAlive() && pat.isAlive() ) {
 
 		// Give user the option of using a special attack:
@@ -188,13 +217,16 @@ public class YoRPG
 		System.out.println( "\n" + pat.getName() + " dealt " + d1 +
 				    " points of damage.");
 
-		System.out.println( "\n" + "Ye Olde Monster smacked " + pat.getName() +
+		System.out.println( "\nThe " + smaug.about() + "  smacked " + pat.getName() +
 				    " for " + d2 + " points of damage.");
+		if (smaug.isAlive() && pat.isAlive()){
+		    System.out.println( "\nThe wretched beast still stand!");
+		}
 	    }//end while
 
 	    //option 1: you & the monster perish
 	    if ( !smaug.isAlive() && !pat.isAlive() ) {
-		System.out.println( "'Twas an epic battle, to be sure... " + 
+		System.out.println( "\n'Twas an epic battle, to be sure... " + 
 				    "You cut ye olde monster down, but " +
 				    "with its dying breath ye olde monster. " +
 				    "laid a fatal blow upon thy skull." );
@@ -202,12 +234,12 @@ public class YoRPG
 	    }
 	    //option 2: you slay the beast
 	    else if ( !smaug.isAlive() ) {
-		System.out.println( "HuzzaaH! Ye olde monster hath been slain!" );
+		System.out.println( "\nHuzzaaH! Ye olde monster hath been slain!" );
 		return true;
 	    }
 	    //option 3: the beast slays you
 	    else if ( !pat.isAlive() ) {
-		System.out.println( "Ye olde self hath expired. You got dead." );
+		System.out.println( "\nYe olde self hath expired. You got dead." );
 		return false;
 	    }
 	}//end else
@@ -226,11 +258,15 @@ public class YoRPG
 	//loading...
 	YoRPG game = new YoRPG();
 
-	int encounters = 0;
+	/*while( encounters < MAX_ENCOUNTERS ) {
+	    if ( !game.playTurn() )
+		break;
+	    encounters++;
+	    System.out.println();
+	    }*/
+	game.startGame();
 	
-        game.rooms();
-
-	System.out.println( "Thy game doth be over." );
+	System.out.println( "\nThy game doth be over." );
 	/*================================================
 	  ================================================*/
     }//end main

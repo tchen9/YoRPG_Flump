@@ -6,7 +6,7 @@
 public class Healer extends Character{
 
     public Healer(String name){
-	super(100, name, 50, 20, 125, 15, 0.7);
+	super(800, name, 50, 20, 125, 15);
     }
     public void specialize(){
 	strength = SPECIAL_STRENGTH;

@@ -6,7 +6,7 @@
 public class Giant extends Character{
     
     public Giant(String name){
-	super(300, name, 120, 15, 200, 2, 0.4);
+	super(1200, name, 120, 15, 200, 2);
     }
     public void specialize(){
 	strength = SPECIAL_STRENGTH;

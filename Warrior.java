@@ -6,7 +6,7 @@
 public class Warrior extends Character{
 
     public Warrior(String name) {
-        super(200, name, 70, 15, 90, 5, 0.9);
+        super(1000, name, 70, 15, 90, 5);
     }
     public void specialize(){
 	strength = SPECIAL_STRENGTH;

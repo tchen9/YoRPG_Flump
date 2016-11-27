@@ -6,7 +6,7 @@
 public class Mage extends Character{
     
     public Mage(String name){
-	super(100, name, 150, 20, 100, 90, 0.5);
+	super(900, name, 150, 20, 100, 90);
     }
     public void specialize(){
 	strength = SPECIAL_STRENGTH;

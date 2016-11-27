@@ -6,7 +6,7 @@
 public class Archer extends Character{
 
     public Archer(String name){
-	super(100, name, 60, 15, 65, 12, 0.8);
+	super(850, name, 60, 15, 65, 12);
     }
     public void specialize(){
 	strength = SPECIAL_STRENGTH;
