@@ -123,7 +123,10 @@ public class YoRPG
       =============================================*/
 
     public void rooms(){
-	for (int room = 1; room < 10; room += 1){
+	int room = 1;
+	
+        while (room < 10){
+	    
 	    System.out.println( "You are in Room " + room + ".");
 	    if (Math.random() > 0.3){
 		if (!playTurn()){
@@ -138,10 +141,12 @@ public class YoRPG
 		if (Math.random() < 0.5){
 		    System.out.println("Yay, you got a health powerup");
 		    pat.health += 20;
+		    room += 1;
 		}
 		else {
 		    System.out.println("Yay, you got a strength powerup");
 		    pat.strength += 10;
+		    room += 1;
 		}
 	    }
 	}
