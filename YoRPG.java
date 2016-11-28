@@ -130,6 +130,8 @@ public class YoRPG
              	System.out.println(s);
             }
             startGame();
+
+	    System.out.println( "\nThy game doth be over." );
         }
     }//end newGame()
 
@@ -270,7 +272,6 @@ public class YoRPG
 	//loading...
 	YoRPG game = new YoRPG();
 	
-	System.out.println( "\nThy game doth be over." );
 	/*================================================
 	  ================================================*/
     }//end main

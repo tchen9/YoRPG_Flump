@@ -11,7 +11,7 @@ import graphics.Texture;
 
 public class GameWindow extends GameObject {
     
-    public static final Font MAIN_FONT = loadFont("src/fonts/Abel-Regular.ttf");
+    public static final Font MAIN_FONT = loadFont("graphicsSrc/fonts/Abel-Regular.ttf");
     
     protected double width, height;
 
