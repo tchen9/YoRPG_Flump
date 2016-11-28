@@ -1,7 +1,7 @@
 <project name="rpg" basedir="." default="main">
     
     <property name="projectName" value="rpg" />
-    <property name="src.dir" value="src" />
+    <property name="src.dir" value="graphicsSrc" />
     <property name="build.dir" value="build" />
     <property name="dist.dir" value="dist" />
 
@@ -24,8 +24,8 @@
     <target name="compile" depends="init-bin">
         <javac srcdir="${src.dir}"
             debug="true"
-            source="1.8"
-            target="1.8"
+            source="1.7"
+            target="1.7"
             verbose="true"
             classpathref="jars"
             includeantruntime="false" />
