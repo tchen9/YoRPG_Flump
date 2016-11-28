@@ -6,6 +6,7 @@
 
 import java.io.*;
 import java.util.*;
+import core.Game;
 
 public class YoRPG
 {
@@ -52,73 +53,84 @@ public class YoRPG
 	String s;
 	String name = "";
 	int player = 0;
-	
-	s = "~~~ Welcome to Ye Olde RPG! ~~~\n";
 
-	s += "\nChoose your difficulty: \n";
-	s += "\t1: Easy\n";
-	s += "\t2: Not so easy\n";
-	s += "\t3: Beowulf hath nothing on me. Bring it on.\n";
-	s += "Selection: ";
-	System.out.print( s );
+        String graphics = "n";
+        System.out.println("Enable Experimental Graphics? (y/n)");
+        try {
+            graphics = in.readLine();
+        } catch ( IOException e ) {}
 
-	try {
-	    difficulty = Integer.parseInt( in.readLine() );
-	}
-	catch ( IOException e ) { }
-
-	s = "Intrepid warrior, what doth thy call thyself? (State your name): ";
-	System.out.print( s );
-
-	try {
-	    name = in.readLine();
-	}
-	catch ( IOException e ) { }
-	
-	s = "Class Info:\n";
-	s += "\t1: Warrior\n";
-	s += "\t2: Mage\n";
-	s += "\t3: Archer\n";
-	s += "\t4: Healer\n";
-	s += "\t5: Giant\n";
-	s += "\t6: I'm ready\n";
-	s += "Selection: ";
-	System.out.print( s );
-
-	while (player != 6){
-		    
-		try{
-		    player = Integer.parseInt( in.readLine() );
-		}
-		catch ( IOException e ) { }
-	
-		//instantiate the player's character
-		if (player == 1){
-		    pat = new Warrior( name );
-		    System.out.println(pat.about());
-	    
-		}
-		if (player == 2){
-		    pat = new Mage( name );
-		    System.out.println(pat.about());
-		}
-		if (player == 3){
-		    pat = new Archer( name );
-		    System.out.println(pat.about());
-		}
-		if (player == 4){
-		    pat = new Healer( name );
-		    System.out.println(pat.about());
-		}
-		if (player == 5){
-		    pat = new Giant( name );
-		    System.out.println(pat.about());
-		}
-		if (player == 6)
-		    break;
-		System.out.println(s);
-	    }
-	
+        if (graphics.equals("y")) {
+            new Game().start();
+        } else {
+    
+             s = "~~~ Welcome to Ye Olde RPG! ~~~\n";
+       
+             s += "\nChoose your difficulty: \n";
+             s += "\t1: Easy\n";
+             s += "\t2: Not so easy\n";
+             s += "\t3: Beowulf hath nothing on me. Bring it on.\n";
+             s += "Selection: ";
+             System.out.print( s );
+       
+             try {
+                 difficulty = Integer.parseInt( in.readLine() );
+             }
+             catch ( IOException e ) { }
+       
+             s = "Intrepid warrior, what doth thy call thyself? (State your name): ";
+             System.out.print( s );
+       
+             try {
+                 name = in.readLine();
+             }
+             catch ( IOException e ) { }
+             
+             s = "Class Info:\n";
+             s += "\t1: Warrior\n";
+             s += "\t2: Mage\n";
+             s += "\t3: Archer\n";
+             s += "\t4: Healer\n";
+             s += "\t5: Giant\n";
+             s += "\t6: I'm ready\n";
+             s += "Selection: ";
+             System.out.print( s );
+       
+             while (player != 6){
+             	    
+             	try{
+             	    player = Integer.parseInt( in.readLine() );
+             	}
+             	catch ( IOException e ) { }
+             
+             	//instantiate the player's character
+             	if (player == 1){
+             	    pat = new Warrior( name );
+             	    System.out.println(pat.about());
+                 
+             	}
+             	if (player == 2){
+             	    pat = new Mage( name );
+             	    System.out.println(pat.about());
+             	}
+             	if (player == 3){
+             	    pat = new Archer( name );
+             	    System.out.println(pat.about());
+             	}
+             	if (player == 4){
+             	    pat = new Healer( name );
+             	    System.out.println(pat.about());
+             	}
+             	if (player == 5){
+             	    pat = new Giant( name );
+             	    System.out.println(pat.about());
+             	}
+             	if (player == 6)
+             	    break;
+             	System.out.println(s);
+            }
+            startGame();
+        }
     }//end newGame()
 
     public void startGame(){
@@ -257,8 +269,6 @@ public class YoRPG
 	
 	//loading...
 	YoRPG game = new YoRPG();
-
-	game.startGame();
 	
 	System.out.println( "\nThy game doth be over." );
 	/*================================================
